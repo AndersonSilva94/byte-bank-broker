@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Acoes } from 'src/app/acoes/modelo/acoes'
 import { AcoesService } from 'src/app/acoes/acoes.service';
 import { merge, Subscription } from 'rxjs';
-import { debounceTime, filter, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
 const ESPERA_DIGITACAO = 300
 
@@ -27,6 +27,7 @@ export class AcoesComponent {
     filter(
       (valorDigitado) => valorDigitado.length >= 3 || !valorDigitado.length
     ),
+    distinctUntilChanged(),
     switchMap(
       (valorDigitado) => this.acoesService.getAcoes(valorDigitado)
     )
