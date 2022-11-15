@@ -9,17 +9,19 @@ import { Subscription } from 'rxjs';
   templateUrl: './acoes.component.html',
   styleUrls: ['./acoes.component.css'],
 })
-export class AcoesComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
+export class AcoesComponent {
+  //private subscription: Subscription;
 
   acoesInput = new FormControl();
-  acoes: Acoes;
+  //acoes: Acoes;
+
+  acoes$ = this.acoesService.getAcoes();
 
   constructor(
     private acoesService: AcoesService
   ) {}
 
-  ngOnInit(): void {
+  /* ngOnInit(): void {
   this.subscription = this.acoesService.getAcoes()
       .subscribe(
         res => this.acoes = res
@@ -28,5 +30,5 @@ export class AcoesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
-  }
+  } */
 }
