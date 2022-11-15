@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, pluck, tap } from 'rxjs/operators';
 import { Acao, AcoesAPI } from './modelo/acoes';
 
@@ -12,8 +12,10 @@ export class AcoesService {
     private http: HttpClient
   ) { }
 
-  getAcoes() {
-    return this.http.get<AcoesAPI>('http://localhost:3000/acoes')
+  getAcoes(valor?: string) {
+    const params = valor ? new HttpParams().append('valor', valor) : undefined; // é uma forma de inserir valores de parâmetros sem precisar fazer concatenação
+
+    return this.http.get<AcoesAPI>('http://localhost:3000/acoes', { params })
       .pipe(
         tap(valor => console.log(valor)),
         pluck('payload'), // extrai a propriedade que vai ser utlizado no próximo método
