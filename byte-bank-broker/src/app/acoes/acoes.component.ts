@@ -1,25 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Acoes } from 'src/app/acoes/modelo/acoes'
 import { AcoesService } from 'src/app/acoes/acoes.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-acoes',
   templateUrl: './acoes.component.html',
   styleUrls: ['./acoes.component.css'],
 })
-export class AcoesComponent implements OnInit {
+export class AcoesComponent {
+  //private subscription: Subscription;
+
   acoesInput = new FormControl();
-  acoes: Acoes;
+  //acoes: Acoes;
+
+  acoes$ = this.acoesService.getAcoes();
 
   constructor(
     private acoesService: AcoesService
   ) {}
 
-  ngOnInit(): void {
-    this.acoesService.getAcoes()
+  /* ngOnInit(): void {
+  this.subscription = this.acoesService.getAcoes()
       .subscribe(
-        res => this.acoes = res.payload
+        res => this.acoes = res
       )
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  } */
 }
