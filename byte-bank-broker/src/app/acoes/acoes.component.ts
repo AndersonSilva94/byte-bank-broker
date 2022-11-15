@@ -19,7 +19,7 @@ export class AcoesComponent implements OnInit {
   ngOnInit(): void {
     this.acoesService.getAcoes()
       .subscribe(
-        res => this.acoes = res.payload
+        res => this.acoes = res
       )
   }
 }
